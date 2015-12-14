@@ -55,13 +55,15 @@ end
 ```
 
 Then, in the controller, the `users` attribute would be assigned through the
-use of the `locals` hash on the render calls:
+use of the `#view_assigns` hash:
 
 ``` ruby
 class UsersController < ApplicationController
+  include Represent::AssignLocals
+
   def index
     users = User.all
-    render locals: { users: users }
+    view_assigns[:users] = users
   end
 end
 ```
@@ -71,12 +73,40 @@ A few things to note here:
   1. The view model is required to be implemented, even if it doesn’t have any
      attributes. An error will be raised if a view corresponding to the
      rendered template can’t be found.
-  2. Calling `render` with a `locals` Hash is the only way to inject data into
-     the template, which means you'll also need an attribute accessor for each
-     value you intend to expose.
+  2. By default, the `#view_assigns` hash is the only means of injecting data
+     into the view model/template. See below for an alternative.
   3. Method visibility may not work as expected with view models, as
-     `protected` and `private` methods are both available to the template due
-     to the nature of how the templates are rendered in Rails.
+     both `protected` and `private` methods are available to the template due
+     to the nature of template rendering in Rails.
+
+### `AssignLocals`
+
+Rails has the concept of local assignments for templates, which will make use
+of a hash of values to make data available within the template, bypassing the
+typical means of exposing template data, like instance variables.
+
+To make migration to Represent easier for applications using this approach, the
+module `Represent::AssignLocals` has been provided. Including this module into
+a controller (e.g. `ApplicationController`) changes the behavior of the
+`:locals` option of `#render` by causing the its values to be injected into the
+view model instead of being made available directly to the template.
+
+Then, in the controller, the `users` attribute would be assigned through the
+use of the `:locals` hash on the `#render` calls:
+
+``` ruby
+class UsersController < ApplicationController
+  include Represent::AssignLocals
+
+  def index
+    users = User.all
+    render locals: { users: users }
+  end
+end
+```
+
+Note that you will still need to add an attribute accessor to the view model
+for each value you intend to assign via the `:locals` hash.
 
 ## Development
 

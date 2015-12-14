@@ -11,6 +11,7 @@ module Represent
       self.view_paths = Rails.configuration.paths['app/templates']
     end
 
+    # Prevent instance variables from being copied into the view.
     def view_assigns
       @_view_assigns ||= {}
     end
@@ -37,14 +38,6 @@ module Represent
     end
 
   private
-
-    def _process_options(options)
-      if locals = options.delete(:locals)
-        view_assigns.update locals
-      end
-
-      super
-    end
 
     def view_context_class_name
       @_view_context_class_name ||= begin
