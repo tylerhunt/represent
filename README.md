@@ -108,6 +108,10 @@ end
 Note that you will still need to add an attribute accessor to the view model
 for each value you intend to assign via the `:locals` hash.
 
+### `Exposure`
+
+TODO: write documentation and example.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
