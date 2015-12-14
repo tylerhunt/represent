@@ -129,6 +129,13 @@ git commits and tags, and push the `.gem` file to
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/tylerhunt/represent.
 
+## Credits
+
+Represent was inspired by the work of others, including these fine gems:
+
+  - [Decent Exposure](https://github.com/hashrocket/decent_exposure)
+  - [SimplestView](https://github.com/tpitale/simplest_view)
+
 ## License
 
 The gem is available as open source under the terms of the
