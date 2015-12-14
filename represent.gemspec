@@ -24,6 +24,9 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |file| File.basename(file) }
   spec.require_paths = %w(lib)
 
+  spec.add_dependency 'actionpack', '~> 4.2'
+  spec.add_dependency 'actionview', '~> 4.2'
+  spec.add_dependency 'railties', '~> 4.2'
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'
