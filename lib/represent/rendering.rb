@@ -12,7 +12,7 @@ module Represent
     end
 
     def view_assigns
-      @view_assigns ||= {}
+      @_view_assigns ||= {}
     end
 
     def view_context_class
