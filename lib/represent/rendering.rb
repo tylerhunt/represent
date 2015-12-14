@@ -11,14 +11,6 @@ module Represent
       self.view_paths = Rails.configuration.paths['app/templates']
     end
 
-    def render(options)
-      if locals = options.delete(:locals)
-        view_assigns.update locals
-      end
-
-      super
-    end
-
     def view_assigns
       @view_assigns ||= {}
     end
@@ -45,6 +37,14 @@ module Represent
     end
 
   private
+
+    def _process_options(options)
+      if locals = options.delete(:locals)
+        view_assigns.update locals
+      end
+
+      super
+    end
 
     def view_context_class_name
       @_view_context_class_name ||= begin
